@@ -1,1 +1,1 @@
-# point-poker
+# Point Poker
