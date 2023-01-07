@@ -1,0 +1,21 @@
+[package]
+name = "point-poker"
+version = "0.1.0"
+edition = "2021"
+description = "Point poker but in rust with wasm"
+readme = "README.md"
+repository = "https://github.com/jltorresm/point-poker"
+license = "MIT"
+keywords = ["yew", "trunk"]
+categories = ["gui", "wasm", "web-programming"]
+
+[lib]
+name = "lib"
+
+[dependencies]
+log = "0.4.17"
+yew = { version = "0.20", features = ["csr"] }
+wasm-logger = "0.2.0"
+yew-router = "0.17.0"
+rand = "0.8.5"
+getrandom = { version = "0.2", features = ["js"] }
