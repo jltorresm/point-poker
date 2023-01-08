@@ -34,6 +34,8 @@ pub enum Route {
     #[not_found]
     #[at("/404")]
     NotFound,
+    #[at("/session")]
+    CreateSession,
     // #[at("/s/:id")]
     // Session { id: u32 },
 }
@@ -45,6 +47,9 @@ fn switch(routes: Route) -> Html {
         }
         Route::NotFound => {
             html! { <pages::NotFound /> }
+        }
+        Route::CreateSession => {
+            html! { <pages::Create /> }
         } // Route::Session { id } => {
           //     html! { <Post seed={id} /> }
           // }
