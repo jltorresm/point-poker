@@ -3,21 +3,27 @@ use strum_macros::{Display, EnumIter};
 
 pub const KEY: &str = "state.point.poker";
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct State {
     pub theme: Theme,
+    pub name: Option<String>,
 }
 
 impl Default for State {
     fn default() -> Self {
-        State { theme: Theme::Dark }
+        State {
+            theme: Theme::Dark,
+            name: None,
+        }
     }
 }
 
 impl State {
-    #[allow(clippy::unused_self)]
-    pub fn with_theme(self, t: Theme) -> Self {
-        State { theme: t }
+    pub fn with_theme(&self, t: Theme) -> Self {
+        State {
+            theme: t,
+            ..self.clone()
+        }
     }
 }
 

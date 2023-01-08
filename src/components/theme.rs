@@ -7,7 +7,7 @@ use yew::prelude::*;
 #[function_component(ThemePicker)]
 pub fn theme_picker() -> Html {
     let app_state = use_state_eq(|| {
-        LocalStorage::get::<state::State>(state::KEY).unwrap_or(state::State { theme: Theme::Dark })
+        LocalStorage::get::<state::State>(state::KEY).unwrap_or(state::State::default())
     });
 
     let select_theme = |new_theme: Theme| {
@@ -20,7 +20,7 @@ pub fn theme_picker() -> Html {
 
     use_effect_with_deps(
         move |state| {
-            LocalStorage::set(state::KEY, *(state.clone())).expect("failed to persist state");
+            LocalStorage::set(state::KEY, state.clone()).expect("failed to persist state");
             gloo::utils::document()
                 .get_elements_by_tag_name("html")
                 .item(0)
@@ -32,7 +32,7 @@ pub fn theme_picker() -> Html {
                 .expect("couldn't set global theme");
             || ()
         },
-        app_state.clone(),
+        (*app_state).clone(),
     );
 
     html! {
