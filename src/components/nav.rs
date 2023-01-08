@@ -1,4 +1,5 @@
 use crate::app::Route;
+use crate::components::theme::ThemePicker;
 use yew::prelude::*;
 use yew_router::prelude::*;
 
@@ -20,6 +21,7 @@ pub fn nav() -> Html {
                             <Link<Route> classes={classes!("nav-link")} to={Route::Home}>{ "Home" }</Link<Route>>
                         </li>
                     </ul>
+                    <ThemePicker/>
                 </div>
             </div>
         </nav>

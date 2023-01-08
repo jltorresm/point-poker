@@ -40,6 +40,7 @@ pub enum Route {
     // Session { id: u32 },
 }
 
+#[allow(clippy::needless_pass_by_value)]
 fn switch(routes: Route) -> Html {
     match routes {
         Route::Home => {
