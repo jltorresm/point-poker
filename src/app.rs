@@ -13,10 +13,10 @@ pub struct Props {
 #[function_component(App)]
 pub fn app() -> Html {
     html! {
-        <div class="container-fluid">
+        <div class="container-fluid d-flex flex-column full-height">
             <HashRouter>
                 <Nav />
-                <main class="row">
+                <main class="row flex-grow-1">
                     <Switch<Route> render={switch} />
                 </main>
             </HashRouter>
