@@ -19,3 +19,8 @@ wasm-logger = "0.2.0"
 yew-router = "0.17.0"
 rand = "0.8.5"
 getrandom = { version = "0.2", features = ["js"] }
+strum = { version = "0.24.1", features = ["strum_macros"] }
+serde = { version = "1.0.152", features = ["derive"] }
+strum_macros = "0.24.3"
+web-sys = { version = "0.3.60", features = ["Window", "Element", "HtmlCollection"] }
+gloo = "0.8.0"
