@@ -25,6 +25,13 @@ impl State {
             ..self.clone()
         }
     }
+
+    pub fn with_name(&self, n: String) -> Self {
+        State {
+            name: Some(n),
+            ..self.clone()
+        }
+    }
 }
 
 #[derive(Clone, Copy, Debug, EnumIter, Display, PartialEq, Eq, Serialize, Deserialize)]
