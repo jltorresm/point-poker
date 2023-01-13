@@ -36,8 +36,8 @@ pub enum Route {
     NotFound,
     #[at("/session")]
     CreateSession,
-    // #[at("/s/:id")]
-    // Session { id: u32 },
+    #[at("/s/:id")]
+    Session { id: u32 },
 }
 
 #[allow(clippy::needless_pass_by_value)]
@@ -51,8 +51,9 @@ fn switch(routes: Route) -> Html {
         }
         Route::CreateSession => {
             html! { <pages::Create /> }
-        } // Route::Session { id } => {
-          //     html! { <Post seed={id} /> }
-          // }
+        }
+        Route::Session { id } => {
+            html! { <pages::Session {id} /> }
+        }
     }
 }
