@@ -27,8 +27,8 @@ pub fn name_input(props: &Props) -> Html {
     html! {
         <div class="mb-5">
             <label for="name" class="form-label display-6">{"Enter your name to join"}</label>
-            <input type="text" class="form-control form-control-lg" placeholder="Hari Seldon"
-                {required} value={(*name_state).clone()} {oninput}
+            <input type="text" class="form-control form-control-lg"
+                placeholder={(*name_state).clone()} {required} {oninput}
             />
         </div>
     }
