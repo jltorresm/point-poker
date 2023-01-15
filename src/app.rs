@@ -1,4 +1,5 @@
 use crate::components::nav::Nav;
+use crate::game;
 use crate::pages;
 use std::collections::HashMap;
 use yew::prelude::*;
@@ -37,7 +38,7 @@ pub enum Route {
     #[at("/session")]
     CreateSession,
     #[at("/s/:id")]
-    Session { id: u32 },
+    Session { id: game::Id },
 }
 
 #[allow(clippy::needless_pass_by_value)]

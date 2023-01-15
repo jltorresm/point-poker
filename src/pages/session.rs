@@ -1,10 +1,11 @@
+use crate::game;
 use crate::state;
 use gloo::storage::{LocalStorage, Storage};
 use yew::prelude::*;
 
 #[derive(Clone, Debug, PartialEq, Properties)]
 pub struct Props {
-    pub id: u32,
+    pub id: game::Id,
 }
 
 #[function_component(Session)]
