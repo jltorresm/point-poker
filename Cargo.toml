@@ -24,3 +24,5 @@ serde = { version = "1.0.152", features = ["derive"] }
 strum_macros = "0.24.3"
 web-sys = { version = "0.3.60", features = ["Window", "Element", "HtmlCollection"] }
 gloo = "0.8.0"
+uuid = { version = "1", features = ["v4", "serde"] }
+chrono = { version = "0.4", features = ["serde"] }
