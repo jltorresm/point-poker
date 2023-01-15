@@ -1,7 +1,8 @@
+use crate::app::Route;
 use crate::game;
-use crate::state;
-use gloo::storage::{LocalStorage, Storage};
+use crate::hooks::use_app_state;
 use yew::prelude::*;
+use yew_router::prelude::Redirect;
 
 #[derive(Clone, Debug, PartialEq, Properties)]
 pub struct Props {
@@ -12,9 +13,14 @@ pub struct Props {
 pub fn session(props: &Props) -> Html {
     let Props { id, .. } = props.clone();
 
-    let app_state = use_state_eq(|| {
-        LocalStorage::get::<state::State>(state::KEY).unwrap_or(state::State::default())
-    });
+    let app_state = use_app_state();
+
+    if match app_state.name.clone() {
+        None => true,
+        Some(g) => g.is_empty(),
+    } {
+        return html! {<Redirect<Route> to={Route::Join{ id }}/>};
+    }
 
     html! {
         <div class="d-flex flex-column align-items-center justify-content-center">
