@@ -1,5 +1,6 @@
 use crate::app::Route;
 use crate::components::galaxy::Galaxy;
+use crate::game::Poker;
 use crate::state;
 use gloo::storage::{LocalStorage, Storage};
 use web_sys::HtmlInputElement;
@@ -34,12 +35,16 @@ pub fn create() -> Html {
             return;
         }
 
-        LocalStorage::set(state::KEY, (*app_state_o).clone()).expect("failed to persist state");
+        // Create the new game
+        let game = Poker::default();
+        let game_id = game.id;
+        let new_state = app_state_o.with_game(game);
+
+        // Store the game in the state
+        LocalStorage::set(state::KEY, new_state).expect("failed to persist state");
         e.prevent_default();
 
-        // TODO: Create all the config for the game
-
-        navigator.push(&Route::Session { id: 123456 });
+        navigator.push(&Route::Session { id: game_id });
     };
 
     html! {
