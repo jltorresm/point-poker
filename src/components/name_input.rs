@@ -16,7 +16,7 @@ pub fn name_input(props: &Props) -> Html {
         required,
     } = props.clone();
 
-    let name_state = use_name();
+    let current_name = (*use_name()).clone().unwrap_or(String::from("Hari Seldon"));
 
     let oninput = move |e: InputEvent| {
         let input: HtmlInputElement = e.target_unchecked_into();
@@ -28,7 +28,7 @@ pub fn name_input(props: &Props) -> Html {
         <div class="mb-5">
             <label for="name" class="form-label display-6">{"Enter your name to join"}</label>
             <input type="text" class="form-control form-control-lg"
-                placeholder={(*name_state).clone()} {required} {oninput}
+                placeholder={current_name} {required} {oninput}
             />
         </div>
     }
