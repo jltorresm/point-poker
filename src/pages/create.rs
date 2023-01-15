@@ -15,6 +15,7 @@ pub fn create() -> Html {
         LocalStorage::get::<state::State>(state::KEY).unwrap_or(state::State::default())
     });
     let app_state = app_state_o.clone();
+    let current_name = app_state_o.name.clone();
 
     let oninput = move |e: InputEvent| {
         let input: HtmlInputElement = e.target_unchecked_into();
@@ -54,7 +55,7 @@ pub fn create() -> Html {
             <div class="mb-5">
                 <label for="name" class="form-label display-6">{"Enter your name to join"}</label>
                 <input type="text" class="form-control form-control-lg" placeholder="Hari Seldon"
-                    {oninput} required={true}
+                    required={true} value={current_name} {oninput}
                 />
             </div>
 
