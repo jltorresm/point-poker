@@ -37,6 +37,8 @@ pub enum Route {
     NotFound,
     #[at("/session")]
     CreateSession,
+    #[at("/join/:id")]
+    Join { id: game::Id },
     #[at("/s/:id")]
     Session { id: game::Id },
 }
@@ -52,6 +54,9 @@ fn switch(routes: Route) -> Html {
         }
         Route::CreateSession => {
             html! { <pages::Create /> }
+        }
+        Route::Join { id: game_id } => {
+            html! { <pages::Join {game_id} /> }
         }
         Route::Session { id } => {
             html! { <pages::Session {id} /> }
