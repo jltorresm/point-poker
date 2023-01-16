@@ -20,6 +20,9 @@ pub fn nav() -> Html {
                         <li class="nav-item">
                             <Link<Route> classes={classes!("nav-link")} to={Route::Home}>{ "Home" }</Link<Route>>
                         </li>
+                        <li class="nav-item">
+                            <Link<Route> classes={classes!("nav-link")} to={Route::CreateSession}>{ "Start New" }</Link<Route>>
+                        </li>
                     </ul>
                     <ThemePicker/>
                 </div>
