@@ -14,6 +14,14 @@ impl Poker {
     fn new_id() -> Id {
         rand::thread_rng().gen_range(100_000..1_000_000).into()
     }
+
+    #[must_use]
+    pub fn with_vote_type(&self, vote_type: VoteType) -> Self {
+        Self {
+            vote_type,
+            ..self.clone()
+        }
+    }
 }
 
 impl Default for Poker {
