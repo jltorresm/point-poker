@@ -1,9 +1,9 @@
 use crate::app::Route;
+use crate::components::host_controls::HostControls;
 use crate::game::{self, Poker, VoteType};
 use crate::hooks::use_app_state;
 use crate::state;
 use gloo::storage::{LocalStorage, Storage};
-use strum::IntoEnumIterator;
 use yew::prelude::*;
 use yew_router::prelude::Redirect;
 
@@ -27,32 +27,17 @@ pub fn session(props: &Props) -> Html {
         return html! {<Redirect<Route> to={Route::Join{ id }}/>};
     }
 
-    let other_voting_options: Html = VoteType::iter()
-        .map(|vote_type| {
-            let onclick = {
-                let vote_state = vote_state.clone();
-                let app_state = app_state.clone();
-                let game_state = game_state.clone();
-                Callback::from(move |_| {
-                    vote_state.set(vote_type);
-                    let game = (*game_state).with_vote_type(vote_type);
-                    LocalStorage::set(state::KEY, app_state.with_game(game))
-                        .expect("failed to persist state");
-                })
-            };
-
-            let label = vote_type.to_string();
-            html! {
-                <div key={label.clone()} lass="me-2">
-                    <input type="radio" class="btn-check"
-                        name="vote_type" id={label.clone()}
-                        autocomplete="off" checked={*vote_state == vote_type}
-                    />
-                    <label class="btn btn-outline-info" for={label} {onclick}>{vote_type}</label>
-                </div>
-            }
+    let on_vote_type_change = {
+        let app_state = app_state.clone();
+        let game_state = game_state.clone();
+        let vote_state = vote_state.clone();
+        Callback::from(move |new_vote_type: VoteType| {
+            vote_state.set(new_vote_type);
+            let game = (*game_state).with_vote_type(new_vote_type);
+            LocalStorage::set(state::KEY, app_state.with_game(game))
+                .expect("failed to persist state");
         })
-        .collect();
+    };
 
     html! {
         <div class="d-flex flex-column align-items-center justify-content-center">
@@ -62,17 +47,21 @@ pub fn session(props: &Props) -> Html {
 
             <div class="btn-group my-4" role="group" aria-label="Default button group">
                 {
-                    (*vote_state).options().iter().map(|vote_type| {
+                    (*vote_state).options().iter().map(|vote| {
+                        let onclick = {
+                            let vote = *vote;
+                            move |_| web_sys::console::log_1(&vote.to_string().into())
+                        };
                         html!{
-                            <button type="button" class="btn btn-lg btn-outline-info">{vote_type}</button>
+                            <button type="button" class="btn btn-lg btn-outline-info" {onclick}>
+                                {vote}
+                            </button>
                         }
                     }).collect::<Html>()
                 }
             </div>
 
-            <div class="d-flex flex-wrap justify-content-evenly w-50 border border-light p-4">
-                {other_voting_options}
-            </div>
+            <HostControls selected={*vote_state} {on_vote_type_change} />
         </div>
     }
 }
